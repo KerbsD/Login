@@ -1,5 +1,5 @@
 
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import LoginFields from "../components/auth/LoginFields"
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -8,7 +8,7 @@ import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -64,6 +64,16 @@ const Login = () => {
         }
     }
 
+    
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist);
+    }, [persist])
+
+
     return (
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -88,6 +98,15 @@ const Login = () => {
                 />
 
                 <button className="py-2 px-4 mt-4 bg-zinc-950 text-zinc-100 tracking-tight mb-5 hover:bg-zinc-800 active:bg-zinc-700 duration-200 focus:bg-zinc-600">Sign In</button>
+                <div className="persistCheck">
+                    <input
+                        type="checkbox"
+                        id="persist"
+                        onChange={togglePersist}
+                        checked={persist}
+                    />
+                    <label htmlFor="persist">Trust This Device</label>
+                </div>            
             </form>
             <p className="text-center">
                 Need an Account?

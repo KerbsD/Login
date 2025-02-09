@@ -35,13 +35,13 @@ const Users = () => {
     }, [])
 
     return (
-        <article>
-            <h2>Users List</h2>
+        <article className="border border-zinc-950 p-4">
+            <h2 className="text-center uppercase font-bold tracking-tight mb-3">Users List</h2>
             {users?.length
                 ? (
-                    <ul>
+                    <ul className="border-2 border-zinc-950 px-5 py-1 bg-zinc-950">
                         {users.map((user) => (
-                            <li className="font-bold" key={user._id}>{user?.username}</li>
+                            <li className="font-bold p-1 text-zinc-50" key={user._id}>{user?.username}</li>
                         )
                         )}
                     </ul>
