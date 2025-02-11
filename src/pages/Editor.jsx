@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom" 
+import Home from "../components/HomeBtn"
 
 function Editor() {
     return (
@@ -6,9 +7,7 @@ function Editor() {
             <h1>Editors Page</h1>
             <br />
             <p>You must have been assigned an Editor role.</p>
-            <div className="flexGrow">
-                <Link to="/">Home</Link>
-            </div>
+            <Home />
         </section>
     )
 }

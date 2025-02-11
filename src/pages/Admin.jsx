@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Users from './Users'
+import Home from '../components/HomeBtn'
 
 function Admin(){
     return (
@@ -8,7 +9,7 @@ function Admin(){
             <br />
             <Users />
             <div className="flexGrow">  
-                <Link to="/">Home</Link>
+                <Home />
             </div>
         </section>
     )
