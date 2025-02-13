@@ -28,7 +28,7 @@ function Layout() {
                     }
                 </div>
             </nav>
-            <main className="flex flex-col justify-center items-center min-h-[90vh] py-4 px-2">
+            <main className="flex justify-center h-[80vh] my-10">
                 <Outlet />
             </main>
         </>

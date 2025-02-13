@@ -1,7 +1,6 @@
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
-import Editor from './pages/Editor'
 import Home from './pages/Home'
 import Layout from './pages/Layout'
 import LinkPage from './pages/LinkPage'
@@ -11,6 +10,7 @@ import RequireAuth from './pages/RequireAuth'
 import Unauthorized from './pages/Unauthorized'
 import PersistLogin from './pages/PersistLogin'
 import { Routes, Route } from 'react-router-dom';
+import Todo from './pages/Todo'
 
 const ROLES = {
   'User': 2001,
@@ -35,7 +35,7 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
-            <Route path="editor" element={<Editor />} />
+            <Route path="todo" element={<Todo />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
