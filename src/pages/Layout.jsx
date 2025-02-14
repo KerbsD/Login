@@ -28,7 +28,7 @@ function Layout() {
                     }
                 </div>
             </nav>
-            <main className="flex justify-center h-[80vh] my-10">
+            <main className="flex justify-center items-center my-10">
                 <Outlet />
             </main>
         </>
