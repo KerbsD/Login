@@ -10,16 +10,20 @@ function Todo() {
     const [success, setSuccess] = useState(false)
     const axiosPrivate = useAxiosPrivate()
 
-    const handleAddTodo = async (e) => {      
+    const toggleSuccess = () => {
+        setSuccess(prevSuccess => !prevSuccess);
+    };
+
+    const handleAddTodo = async (e) => {
         e.preventDefault();
         console.log(todos)
         try {
             const response = await axiosPrivate.post('/todo',
                 JSON.stringify({ taskName: todos, type: type })
-            );   
+            );
             console.log(JSON.stringify(response))
             setTodos('');
-            setSuccess(true)
+            toggleSuccess()
         } catch (err) {
             if (!err?.response) {
                 console.log(err);
@@ -30,6 +34,8 @@ function Todo() {
             }
         }
     }
+
+
 
     return (
         <section className="max-w-6xl w-full">
@@ -42,8 +48,8 @@ function Todo() {
                     <div className="w-14 h-4 mr-2 bg-red-400 rounded-full"></div>
                     <div className="w-14 h-4 mr-2 bg-green-400 rounded-full"></div>
                     <div className="w-14 h-4 mr-2 bg-yellow-400 rounded-full"></div>
-                   <input className="px-4 py-2 outline-none rounded-l-xl w-[700px]" type="text" value={todos} onChange={(e) => setTodos(e.target.value)} />
-                   <button className="px-3 py-1 rounded-r-xl font-semibold text-zinc-50 bg-zinc-950">Add</button> 
+                    <input className="px-4 py-2 outline-none rounded-l-xl w-[700px]" type="text" value={todos} onChange={(e) => setTodos(e.target.value)} />
+                    <button className="px-3 py-1 rounded-r-xl font-semibold text-zinc-50 bg-zinc-950">Add</button>
                 </form>
             </div>
             <div className="grid place-content-center">
