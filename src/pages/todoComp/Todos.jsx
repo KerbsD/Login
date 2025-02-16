@@ -1,14 +1,34 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const Users = ({ trigger }) => {
+const Todos = ({ trigger }) => {
     const [todo, setTodos] = useState();
     const axiosPrivate = useAxiosPrivate();
     const [success, setSuccess] = useState(false);
 
     const toggleSuccess = () => {
-        setSuccess(prevSuccess => !prevSuccess);
-    };
+        setSuccess(prevSucess => !prevSucess)
+    }
+
+    const handleStatus = async (id, currentStatus) => {
+        const newStatus = currentStatus === "In Progress" ? "Done" : "In Progress";
+        console.log(newStatus)
+        try {
+            const response = await axiosPrivate.put('/todo',
+                { id: id, status: newStatus }
+            );
+            console.log(JSON.stringify(response))
+            toggleSuccess()
+        } catch (err) {
+            if (!err?.response) {
+                console.log(err);
+            } else if (err.response?.status === 400) {
+                console.log(err);
+            } else {
+                console.log(err)
+            }
+        }
+    }
 
     const handleTodoDelete = async (id) => {
         console.log(id)
@@ -60,11 +80,14 @@ const Users = ({ trigger }) => {
                     <ul className="max-w-4xl duration-300">
                         {todo.map((todo) => (
                             <li className="min-w-[550px] px-6 py-4 rounded-lg shadow-lg shadow-zinc-950/40 flex items-center mt-4 justify-between" key={todo._id}>
-                                <img src="/resources/checkbox.svg" className="h-5 mr-4" />
+                                <button onClick={() => handleStatus(todo._id, todo.status)}>
+                                    {todo.status === "In Progress" ? <img src="/resources/uncheck.png" className="h-5 mr-4" /> : <img src="/resources/checkbox.svg" className="h-5 mr-4" />}
+                                </button>
                                 <div>
-                                    <label htmlFor="sample" className="text-lg">{todo?.taskName}</label>
+                                    <label htmlFor="sample" className={todo.status === "In Progress" ? "text-xl" : "line-through text-zinc-600 text-xl"}>{todo?.taskName}</label>
                                 </div>
                                 <img onClick={() => handleTodoDelete(todo._id)} src="/resources/trash.png" className="h-5 ml-4 duration-150 hover:animate-bounce" />
+                                <span>{todo.createdAt}</span>
                             </li>
                         )
                         )}
@@ -75,4 +98,4 @@ const Users = ({ trigger }) => {
     );
 };
 
-export default Users;
+export default Todos;
