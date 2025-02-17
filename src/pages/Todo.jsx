@@ -2,12 +2,14 @@ import Home from "../components/HomeBtn"
 import { useState } from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Todos from './todoComp/Todos'
+import useAuth from "../hooks/useAuth";
 
 function Todo() {
     const [todos, setTodos] = useState('');
     const [type, setType] = useState('Neutral')
     const [success, setSuccess] = useState(false)
     const axiosPrivate = useAxiosPrivate()
+    const { auth } = useAuth();
 
     const toggleSuccess = () => {
         setSuccess(prevSuccess => !prevSuccess);
@@ -18,7 +20,7 @@ function Todo() {
         console.log(todos)
         try {
             const response = await axiosPrivate.post('/todo',
-                JSON.stringify({ taskName: todos, type: type })
+                JSON.stringify({ currentUser: auth.user, taskName: todos, type: type })
             );
             console.log(JSON.stringify(response))
             setTodos('');
