@@ -67,7 +67,7 @@ const Login = () => {
     }
 
     return (
-        <section>
+        <section className='h-[90vh] grid place-content-center'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="text-2xl font-bold tracking-tight uppercase mb-5">Login</h1>
             <form onSubmit={handleSubmit}>

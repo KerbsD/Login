@@ -53,7 +53,7 @@ function LinkPage() {
                         <Link to="/">Home</Link>
                     </button>
                     <div className="text-center p-1 w-full text-lg text-zinc-100 rounded-lg bg-zinc-600">
-                        <Link to="/editor">Editors Page</Link>
+                        <Link to="/todo">Todo Page</Link>
                     </div>
                     <div className="text-center p-1 w-full text-lg text-zinc-100 rounded-lg bg-zinc-600">
                         <Link to="/admin">Admin Page</Link>
