@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 
 function Todo() {
     const [todos, setTodos] = useState('');
-    const [type, setType] = useState('Neutral')
+    const [type, setType] = useState("Neutral")
     const [success, setSuccess] = useState(false)
     const axiosPrivate = useAxiosPrivate()
     const { auth } = useAuth();
@@ -14,6 +14,11 @@ function Todo() {
     const toggleSuccess = () => {
         setSuccess(prevSuccess => !prevSuccess);
     };
+
+    const handleType = (type) => {
+        setType(t => type);
+        console.log(type)
+    }
 
     const handleAddTodo = async (e) => {
         e.preventDefault();
@@ -36,20 +41,18 @@ function Todo() {
         }
     }
 
-
-
     return (
-        <section className="max-w-6xl w-full">
-            <div className="flex justify-between items-center w-full">
+        <section className="md:max-w-6xl md:w-full">
+            <div className="flex mx-auto justify-between items-center w-[350px] md:w-full">
                 <h1 className="font-bold uppercase tracking-tight text-2xl">Todo List</h1>
                 <Home />
             </div>
             <div className="p-3 grid place-items-center mt-10">
                 <form onSubmit={handleAddTodo} className="flex flex-row items-center">
-                    <div className="w-14 h-4 mr-2 bg-red-400 rounded-full"></div>
-                    <div className="w-14 h-4 mr-2 bg-green-400 rounded-full"></div>
-                    <div className="w-14 h-4 mr-2 bg-yellow-400 rounded-full"></div>
-                    <input className="px-4 py-2 outline-none rounded-l-xl w-[700px]" type="text" value={todos} onChange={(e) => setTodos(e.target.value)} />
+                    <div onClick={() => handleType("Bad")} className={type === "Bad" ? "w-11 h-4 mr-2 bg-red-400 rounded-full border-2 border-red-700" : "w-14 h-4 mr-2 bg-red-400 rounded-full"}></div>
+                    <div onClick={() => handleType("Healthy")} className={type === "Healthy" ? "w-11 h-4 mr-2 bg-green-400 rounded-full border-2 border-green-700" : "w-14 h-4 mr-2 bg-green-400 rounded-full"}></div>
+                    <div onClick={() => handleType("Neutral")} className={type === "Neutral" ? "w-11 h-4 mr-2 bg-yellow-400 rounded-full border-2 border-yellow-700" : "w-14 h-4 mr-2 bg-yellow-400 rounded-full"}></div>
+                    <input className="px-4 py-2 outline-none rounded-l-xl md:w-[700px]" type="text" value={todos} onChange={(e) => setTodos(e.target.value)} />
                     <button className="px-3 py-1 rounded-r-xl font-semibold text-zinc-50 bg-zinc-950">Add</button>
                 </form>
             </div>

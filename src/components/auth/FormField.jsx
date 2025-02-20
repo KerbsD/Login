@@ -2,9 +2,9 @@ import React from 'react';
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function    FormElement({ label, desc, turo, focus, note, classcont, autocompt = "", name, type, value, onChange, onblur, onfocus}) {
+function FormElement({ label, desc, turo, focus, note, classcont, autocompt = "", name, type, value, onChange, onblur, onfocus}) {
         return <>
-            <label className='mt-4 font-semibold' htmlFor={name}>
+            <label className='mt-4' htmlFor={name}>
                 {label}
                 <FontAwesomeIcon icon={faCheck} className={classcont ? "valid" : "hide"} />
                 <FontAwesomeIcon icon={faTimes} className={classcont || !value ? "hide" : "invalid"} />

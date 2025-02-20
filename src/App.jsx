@@ -3,14 +3,15 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import Home from './pages/Home'
 import Layout from './pages/Layout'
-import LinkPage from './pages/LinkPage'
 import Lounge from './pages/Lounge'
 import Missing from './pages/Missing'
 import RequireAuth from './pages/RequireAuth'
 import Unauthorized from './pages/Unauthorized'
 import PersistLogin from './pages/PersistLogin'
 import { Routes, Route } from 'react-router-dom';
-import Todo from './pages/Todo'
+import Todo from './pages/Todo';
+import NoteLayout from './pages/Notes/NoteLayout'
+import Notes from './pages/Notes/Notes'
 
 const ROLES = {
   'User': 2001,
@@ -25,7 +26,6 @@ function App() {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
@@ -43,7 +43,9 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
-            <Route path="lounge" element={<Lounge />} />
+            <Route element={<NoteLayout />}>
+              <Route index path="notes" element={<Notes/>}/>
+            </Route>
           </Route>
         </Route>
         {/* catch all */}

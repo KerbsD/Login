@@ -1,38 +1,24 @@
 import { Link } from "react-router-dom";
-import Modal from '../components/Modal';
-import { useState } from 'react'
 
 function Home() {
-    const [showModal, setShowModal] = useState(false);
-
-    const handleModalDisplay = () => {
-        setShowModal(prevShow => !prevShow);
-    };
-
     const PageCards = ({ linkPage, imgSrc, title }) => {
         return <Link to={linkPage}>
-            <div className="border-4 border-zinc-200 rounded-2xl px-5 pt-5 flex flex-col justify-center items-center shadow-md max-w-44 duration-200 hover:bg-zinc-950/10 hover:border-zinc-950/10">
-                <img className="w-20" src={imgSrc} alt="" />
-                <p className="inline-block my-4 font-bold text-2xl">{title}</p>
+            <div className="border-4 border-zinc-200 rounded-2xl px-5 pt-5 flex flex-col justify-center items-center shadow-md duration-200 hover:bg-zinc-950/10 hover:border-zinc-950/10">
+                <img className="w-32" src={imgSrc} alt="" />
+                <p className="inline-block my-4 font-bold text-4xl">{title}</p>
             </div>
         </Link>
     }
 
     return (
-        <section>
-            <Modal show={showModal} onClose={handleModalDisplay}>
-                <h2>Modal Title</h2>
-                <p>This is the modal content.</p>
-            </Modal>
-            <h1>Home</h1>
-            <button onClick={handleModalDisplay} className="hover:bg-zinc-200 duration-200 p-3 rounded-3xl shadow-lg uppercase font-bold flex items-center"><img src="/resources/add.svg" className="w-5 mr-2 " alt="" />note</button>
-            <div className="flex gap-2">
+        <section className="h-[90vh]">
+            <h1 className="text-5xl font-bold tracking-tight uppercase mb-10 text-center">Home</h1>
+            <div className="gap-6 md:h-[60vh] flex flex-col md:flex-row justify-center md:items-center">
                 <PageCards linkPage={"/todo"} imgSrc={"/resources/to-do-alt.svg"} title={"Todo's"} />
-                <PageCards linkPage={"/admin"} title={"Admin"} />
+                <PageCards linkPage={"/admin"} imgSrc={'/resources/admin.svg'} title={"Admin"} />
+                <PageCards linkPage={"/notes"} imgSrc={'/resources/notes.svg'} title={"Notes"} />
                 <PageCards linkPage={"/lounge"} imgSrc={"/resources/table-picnic.svg"} title={"Lounge"} />
-                <PageCards linkPage={"/linkpage"} imgSrc={"/resources/link-horizontal.svg"} title={"Linkpage"} />
             </div>
-
         </section>
     )
 }

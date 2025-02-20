@@ -15,8 +15,8 @@ function Layout() {
     return (
         <>
             <nav className="bg-zinc-950 py-3 px-10 flex justify-between items-center">
-                <Link to="/linkpage">
-                    <div className="uppercase font-bold text-zinc-100 text-xl">website</div>
+                <Link to="/">
+                    <div className="uppercase font-bold text-zinc-100 text-xl duration-300">Monotes</div>
                 </Link>
                 <div className="flex items-center gap-3">
                     <p className="text-zinc-100">{auth.user}</p>
@@ -28,7 +28,7 @@ function Layout() {
                     }
                 </div>
             </nav>
-            <main className="flex justify-center items-center my-10">
+            <main className="grid place-content-center my-10">
                 <Outlet />
             </main>
         </>
