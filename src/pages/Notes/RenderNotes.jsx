@@ -2,27 +2,18 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 import Modal from '../../components/Modal';
+import { format } from 'date-fns'
 
 function RenderNotes({ trigger }) {
     const [showModal, setShowModal] = useState(false);
     const [notes, setNotes] = useState()
-    const [note, setNote] = useState()
+    const [selectedNote, setSelectedNote] = useState(null);
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate()
 
-    const handleModalDisplay = async (noteId) => {
-        console.log(noteId)
-        setShowModal(prevShow => !prevShow);
-
-        try {
-            const response = await axiosPrivate.get(`/notes/` + noteId, {
-                
-            });
-            console.log(response.data);
-            setNote(response.data);
-        } catch (err) {
-            console.error(err);
-        }
+    const handleModalDisplay = async (note) => {
+        setSelectedNote(note)
+        setShowModal(prev => !prev);
     };
 
     useEffect(() => {
@@ -49,27 +40,27 @@ function RenderNotes({ trigger }) {
         }
     }, [trigger])
 
-
-
     return (
         <div>
-            <Modal show={showModal} onClose={handleModalDisplay}>
-                {note ? (
-                    <div>
-                        <h1>{note.title}</h1>
-                        <p>{note.content}</p>
-                    </div>
-                ) : (
-                    <p>Loading note...</p>
-                )}
-            </Modal>
             {notes?.length
                 ? (
                     <div className="p-5 flex gap-2 flex-wrap">
+                        {selectedNote ? (
+                            <Modal bgColor={selectedNote.noteBg} show={showModal} onClose={() => setShowModal(false)}>
+                                <div>
+                                    <h1 className="text-2xl font-bold tracking-tight">{selectedNote.title}</h1>
+                                    <span className="inline-block py-3">{format(selectedNote.createdAt, "MMMM dd, yyyy - hh:mm aaa")}</span>
+                                    <p>-{selectedNote.content}</p>
+                                </div>
+                            </Modal>
+                        ) : (
+                            <Modal>
+                                <p>Error no content!</p>
+                            </Modal>
+                        )}
                         {notes.map((note) => (
-                            <div onClick={() => handleModalDisplay(note._id)} className={"border border-zinc-200 p-10 rounded-md shadow-md"} key={note._id}>
+                            <div onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg} key={note._id}>
                                 <p className="font-bold">{note.title}</p>
-
                             </div>
                         )
                         )}
