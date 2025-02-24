@@ -56,6 +56,7 @@ function Todo() {
                     <button className="px-3 py-1 rounded-r-xl font-semibold text-zinc-50 bg-zinc-950">Add</button>
                 </form>
             </div>
+            
             <div className="grid place-content-center">
                 <Todos trigger={success} />
             </div>

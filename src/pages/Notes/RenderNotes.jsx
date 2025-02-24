@@ -58,12 +58,17 @@ function RenderNotes({ trigger }) {
                                 <p>Error no content!</p>
                             </Modal>
                         )}
-                        {notes.map((note) => (
-                            <div onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg} key={note._id}>
-                                <p className="font-bold">{note.title}</p>
+                        <div className="p-5 md:-10">
+                            <div className="columns-1 gap-5 lg:gap-5 sm:columns-2 lg:columns-3 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-7">
+                                {notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((note) => (
+                                    <div onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg}>
+                                        <p className="font-bold">{note.title}</p>
+                                        <p className="text-xs">{format(note.createdAt, "MMMM dd, yyyy")}</p>
+                                    </div>
+                                )
+                                )}
                             </div>
-                        )
-                        )}
+                        </div>
                     </div>
                 )
                 : <p className="text-center text-2xl tracking-tight">You have no notes currently</p>

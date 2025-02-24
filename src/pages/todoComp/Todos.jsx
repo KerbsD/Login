@@ -7,6 +7,7 @@ const Todos = ({ trigger }) => {
     const [todo, setTodos] = useState();
     const axiosPrivate = useAxiosPrivate();
     const [success, setSuccess] = useState(false);
+    const [date, setDate] = useState(format(new Date(), "MMMM dd, yyyy"))
     const { auth } = useAuth();
 
     const toggleSuccess = () => {
@@ -51,10 +52,9 @@ const Todos = ({ trigger }) => {
             }
         }
     }
-    const dateNow = format(new Date(), "MMMM dd, yyyy");
 
     useEffect(() => {
-        console.log(dateNow)
+        console.log(date)
         let isMounted = true;
         const controller = new AbortController();
 
@@ -84,9 +84,10 @@ const Todos = ({ trigger }) => {
         <>
             {todo?.length
                 ? <>
+                    <input className="my-5 border border-zinc-400 rounded-md py-1 px-4" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
                     <ul className="md:max-w-4xl mb-5 p-5 md:p-0 md:min-w-4xl">
                         <h2 className="font-bold text-lg">Current Todo's:</h2>
-                        {todo.filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === dateNow).map((todo) => (
+                        {todo.filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy")).map((todo) => (
                             <div className="rounded-lg shadow-lg shadow-zinc-950/40 border-zinc-50 border mt-4 duration-150" key={todo._id}>
                                 <div className="flex item-center justify-between">
                                     <p className="text-xs inline-block mx-5 my-1 ">Created: {format(todo.createdAt, "MMMM dd, yyyy")}</p>
@@ -112,7 +113,7 @@ const Todos = ({ trigger }) => {
                     </ul>
                     <ul className="md:max-w-4xl mb-5 p-5 md:p-0">
                         <h2 className="font-bold text-lg">Completed Todo's:</h2>
-                        {todo.filter(todo => todo.status === "Done" && format(todo.createdAt, "MMMM dd, yyyy") === dateNow)
+                        {todo.filter(todo => todo.status === "Done" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy"))
                             .sort((a, b) => a.type === "Healthy" ? -1 : b.type === "Healthy" ? 1 : 0)
                             .map((todo) => (
                                 <div className={
