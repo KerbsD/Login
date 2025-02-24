@@ -1,3 +1,4 @@
+
 function LoginFields({ title, id, type, fer, autoCompt, onchange, value, attribs }) {
     return <>
         <label className="text-lg tracking-tight mb-2" htmlFor={id}>{title}</label>
@@ -10,7 +11,6 @@ function LoginFields({ title, id, type, fer, autoCompt, onchange, value, attribs
             onChange={onchange}
             value={value}
             {...attribs}
-            required
         />
     </>
 

@@ -13,7 +13,6 @@ const Users = () => {
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-       
 
         const getUsers = async () => {
             try {
@@ -21,7 +20,6 @@ const Users = () => {
                     signal: controller.signal
                 });
                 await refresh();
-                
                 console.log(response.data);
                 isMounted && setUsers(response.data);
             } catch (err) {

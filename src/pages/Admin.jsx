@@ -8,7 +8,7 @@ function Admin(){
             <h1>Admins Page</h1>
             <br />
             <Users />
-            <div className="flexGrow">  
+            <div className="flexGrow">
                 <Home />
             </div>
         </section>

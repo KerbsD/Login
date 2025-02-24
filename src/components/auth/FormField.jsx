@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function FormElement({ label, desc, turo, focus, note, classcont, autocompt = "", name, type, value, onChange, onblur, onfocus}) {
         return <>
             <label className='mt-4' htmlFor={name}>
+
                 {label}
                 <FontAwesomeIcon icon={faCheck} className={classcont ? "valid" : "hide"} />
                 <FontAwesomeIcon icon={faTimes} className={classcont || !value ? "hide" : "invalid"} />

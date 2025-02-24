@@ -1,6 +1,6 @@
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Admin from './pages/Admin'
+import Admin from './pages/Admin';
 import Home from './pages/Home'
 import Layout from './pages/Layout'
 import Lounge from './pages/Lounge'
@@ -36,6 +36,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="todo" element={<Todo />} />
+
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

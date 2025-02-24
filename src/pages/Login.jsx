@@ -8,8 +8,8 @@ import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-    const { setAuth } = useAuth();
 
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/"
@@ -21,7 +21,6 @@ const Login = () => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [check, toggleCheck] = useToggle("persist", false);
-
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -45,10 +44,12 @@ const Login = () => {
             // console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+
             const id = response?.data?.id;
             setAuth({ user, roles, accessToken, id });
             //setUser('');
             resetUser();
+
             setPwd('');
             navigate(from, { replace: true })
 
@@ -67,8 +68,10 @@ const Login = () => {
         }
     }
 
+
     return (
         <section className='h-[90vh] grid place-content-center'>
+
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="text-2xl font-bold tracking-tight uppercase mb-5">Login</h1>
             <form onSubmit={handleSubmit}>
@@ -79,6 +82,7 @@ const Login = () => {
                     fer={userRef}
                     autoCompt={"off"}
                     attribs={userAttr}
+
                 />
 
                 <LoginFields
@@ -99,6 +103,7 @@ const Login = () => {
                     />
                     <label className='ml-1 accent-zinc-600' htmlFor="persist">Trust this Device</label>
                 </div>
+
             </form>
             <p className="text-center">
                 Need an Account?

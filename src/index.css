@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 * {
     margin: 0;
     padding: 0;
@@ -17,13 +21,18 @@ body {
     background-color: whitesmoke;
 }
 
+<<<<<<< HEAD
 /* .App {
+=======
+.App {
+>>>>>>> main
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh; 
   padding: 1rem 0.5rem;
+<<<<<<< HEAD
 } */
 
 @keyframes pop {
@@ -46,6 +55,44 @@ form {
     width: 350px;
 }
 
+=======
+}
+/* 
+section {
+    width: 100%;
+    max-width: 430px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+} */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* input[type="text"],
+input[type="password"],
+button,
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;    
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+} */
+
+>>>>>>> main
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
