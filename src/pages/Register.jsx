@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import FormElement from "../components/auth/FormField";
 import axios from '../api/axios';
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -10,7 +10,8 @@ const REGISTER_URL = '/register';
 function Register() {
     const userRef = useRef();
     const errRef = useRef();
-
+    const navigate = useNavigate()
+    
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
@@ -67,7 +68,7 @@ function Register() {
             setUser('');
             setPwd('');
             setMatchPwd('');
-            <Navigate to="/login" />
+            navigate("/login")
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
