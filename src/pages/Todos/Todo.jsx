@@ -1,8 +1,8 @@
-import Home from "../components/HomeBtn"
+import Home from "../../components/HomeBtn"
 import { useState } from 'react';
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import Todos from './todoComp/Todos'
-import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Todos from './RenderTodos'
+import useAuth from "../../hooks/useAuth";
 
 function Todo() {
     const [todos, setTodos] = useState('');

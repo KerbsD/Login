@@ -86,7 +86,7 @@ const Todos = ({ trigger }) => {
         !loading ? <>
             {todo?.length
                 ? <>
-                    <input className="my-5 border border-zinc-400 rounded-md py-1 px-4 max-w-36" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                    <input className="my-5 border border-zinc-400 rounded-md py-1 px-4 max-w-36 mx-auto" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     <ul className="md:max-w-4xl mb-5 p-5 md:p-0 md:min-w-4xl">
                         <h2 className="font-bold text-lg">Current Todo's:</h2>
                         {todo.filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy")).map((todo) => (

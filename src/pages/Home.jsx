@@ -15,9 +15,7 @@ function Home() {
             <h1 className="text-5xl font-bold tracking-tight uppercase mb-10 text-center">Home</h1>
             <div className="gap-6 md:h-[60vh] flex flex-col md:flex-row justify-center md:items-center">
                 <PageCards linkPage={"/todo"} imgSrc={"/resources/to-do-alt.svg"} title={"Todo's"} />
-                <PageCards linkPage={"/admin"} imgSrc={'/resources/admin.svg'} title={"Admin"} />
                 <PageCards linkPage={"/notes"} imgSrc={'/resources/notes.svg'} title={"Notes"} />
-                <PageCards linkPage={"/lounge"} imgSrc={"/resources/table-picnic.svg"} title={"Lounge"} />
             </div>
         </section>
     )
