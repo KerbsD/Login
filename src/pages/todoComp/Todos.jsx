@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import useAuth from "../../hooks/useAuth";
 
 const Todos = ({ trigger }) => {
+    const [loading, setLoading] = useState(true);
     const [todo, setTodos] = useState();
     const axiosPrivate = useAxiosPrivate();
     const [success, setSuccess] = useState(false);
@@ -23,6 +24,7 @@ const Todos = ({ trigger }) => {
             );
             console.log(JSON.stringify(response))
             toggleSuccess()
+
         } catch (err) {
             if (!err?.response) {
                 console.log(err);
@@ -65,6 +67,7 @@ const Todos = ({ trigger }) => {
                 });
                 console.log(response.data);
                 isMounted && setTodos(response.data);
+                setLoading(false)
             } catch (err) {
                 console.error(err);
             }
@@ -79,12 +82,11 @@ const Todos = ({ trigger }) => {
     }, [trigger, success])
 
 
-
     return (
-        <>
+        !loading ? <>
             {todo?.length
                 ? <>
-                    <input className="my-5 border border-zinc-400 rounded-md py-1 px-4" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+                    <input className="my-5 border border-zinc-400 rounded-md py-1 px-4 max-w-36" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     <ul className="md:max-w-4xl mb-5 p-5 md:p-0 md:min-w-4xl">
                         <h2 className="font-bold text-lg">Current Todo's:</h2>
                         {todo.filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy")).map((todo) => (
@@ -134,12 +136,15 @@ const Todos = ({ trigger }) => {
                                     </li>
                                 </div>
                             )
-                            )} 
+                            )}
                     </ul>
                 </>
                 : <p className="text-3xl font-bold mt-20">There was an error</p>
             }
-        </>
+        </> : <div className="grid place-content-center ">
+            <div className="p-5 w-[50px] h-[50px] border-2 border-zinc-950 border-l-0 border-t-0 rounded-full animate-spin">
+            </div>
+        </div>
     );
 };
 

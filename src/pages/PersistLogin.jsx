@@ -9,7 +9,7 @@ function PersistLogin() {
     const refresh = useRefreshToken();
     const { auth } = useAuth();
     const [persist] = useLocalStorage("persist", false)
-    
+
     useEffect(() => {
         let isMounted = true;
 
@@ -37,7 +37,8 @@ function PersistLogin() {
         {!persist
             ? <Outlet />
             : isLoading
-                ? <p>Loading...</p>
+                ? <div className="p-5 w-[50px] h-[50px] border-2 border-zinc-950 border-l-0 rounded-full animate-spin"> 
+                </div>
                 : <Outlet />}
     </>
 }

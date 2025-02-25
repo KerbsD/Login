@@ -28,7 +28,7 @@ function Layout() {
                     }
                 </div>
             </nav>
-            <main className="grid place-content-center my-10">
+            <main className="grid place-content-center p-10">
                 <Outlet />
             </main>
         </>
