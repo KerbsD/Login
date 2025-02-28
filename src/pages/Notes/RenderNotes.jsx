@@ -3,6 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 import Modal from '../../components/Modal';
 import { format } from 'date-fns'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 function RenderNotes({ trigger }) {
     const [loading, setLoading] = useState(true)
@@ -61,15 +62,28 @@ function RenderNotes({ trigger }) {
                                     <p>Error no content!</p>
                                 </Modal>
                             )}
+
                             <div className="p-5 md:p-10">
-                                <div className="grid grid-col-1 md:grid-cols-3 gap-3">
-                                    {notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((note) => (
-                                        <div onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg}>
-                                            <p className="font-bold mb-1">{note.title}</p>
-                                            <p className="text-xs">{format(note.createdAt, "MMMM dd, yyyy")}</p>
-                                        </div>
-                                    )
-                                    )}
+                                <div className="">
+                                    <DragDropContext>
+                                        <Droppable droppableId="notes">
+                                            {(provided) => (
+                                                <div {...provided.droppableProps} ref={provided.innerRef} className="notes grid grid-col-1 md:grid-cols-3 gap-3">
+                                                    {notes.map((note, index) => (
+                                                        <Draggable key={note.title} draggableId={note.title} index={index}>
+                                                            {(provided) => (
+                                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg}>
+                                                                    <p className="font-bold mb-1">{note.title}</p>
+                                                                    <p className="text-xs">{format(note.createdAt, "MMMM dd, yyyy")}</p>
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                    ))}
+                                                    {provided.placeholder}
+                                                </div>
+                                            )}
+                                        </Droppable>
+                                    </DragDropContext>
                                 </div>
                             </div>
                         </div>
