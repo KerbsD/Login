@@ -12,7 +12,7 @@ const Login = () => {
     const { setAuth } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/"
+    const from = location.state?.from?.pathname || "home"
 
     const userRef = useRef();
     const errRef = useRef();
@@ -51,7 +51,6 @@ const Login = () => {
 
             setPwd('');
             navigate(from, { replace: true })
-
         } catch (err) {
             console.log(err)
             if (!err?.response) {

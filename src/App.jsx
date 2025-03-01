@@ -29,7 +29,9 @@ function App() {
 
         {/* we want to protect these routes */}
         <Route element={<PersistLogin />}>
-          <Route index path="/" element={<Home />} />
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
             <Route element={<TodoLayout />}>

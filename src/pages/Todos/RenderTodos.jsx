@@ -107,7 +107,7 @@ const Todos = ({ trigger }) => {
                                     <div>
                                         <label className={todo.status === "In Progress" ? "text-xl" : "line-through text-zinc-600 text-xl"}>{todo?.taskName}</label>
                                     </div>
-                                    <img onClick={() => handleTodoDelete(todo._id)} src="/resources/trash.png" className="h-5 ml-4 duration-150 hover:animate-bounce" />
+                                    <img onClick={() => handleTodoDelete(todo._id)} src="/resources/trash.svg" className="h-6 ml-4 duration-150 hover:animate-bounce" />
                                 </li>
                             </div>
                         )
