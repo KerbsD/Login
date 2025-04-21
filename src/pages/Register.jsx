@@ -11,7 +11,7 @@ function Register() {
     const userRef = useRef();
     const errRef = useRef();
     const navigate = useNavigate()
-    
+
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
@@ -83,7 +83,6 @@ function Register() {
 
     return (
         <section className="text-lg h-[90vh] grid place-content-center">
-
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="text-2xl font-bold tracking-tight uppercase">Register</h1>
             <form onSubmit={handleSubmit}>

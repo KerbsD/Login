@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 import Modal from '../../components/Modal';
-import { format, set } from 'date-fns'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { se } from "date-fns/locale";
+import { format } from 'date-fns'
 
 function RenderNotes({ trigger }) {
     const [isDisabled, setIsDisabled] = useState(true);
@@ -62,7 +60,7 @@ function RenderNotes({ trigger }) {
                     content
                 })
             );
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response?.data))
             setTitle('');
             setContent('');
             setNoteId('')
@@ -103,18 +101,24 @@ function RenderNotes({ trigger }) {
         setIsDisabled(prev => !prev);
     }
 
+
     return (
         !loading ?
             <div>
                 {notes?.length
                     ? (
                         <div className="p-5">
+
                             {selectedNote ? (
-                                <Modal bgColor={selectedNote.noteBg} show={showModal} onClose={() => setShowModal(false)}>
+                                <Modal bgColor={selectedNote.noteBg} show={showModal} onClose={
+                                    () => {
+                                        setShowModal(false);
+                                        setIsDisabled(true);
+                                    }}>
                                     <form onSubmit={handleEditNote} className='w-[325px]'>
                                         <input type="text" disabled={isDisabled} className="placeholder:text-zinc-950 outline-none text-2xl font-bold tracking-tight bg-transparent" value={title} onChange={(e) => setTitle(e.target.value)} />
                                         <span className="inline-block py-3">{format(selectedNote.createdAt, "MMMM dd, yyyy - hh:mm aaa")}</span>
-                                        <input type="text" disabled={isDisabled} className="bg-transparent outline-none placeholder:text-zinc-950" value={content} onChange={(e) => setContent(e.target.value)} />
+                                        <textarea type="text" rows='17' cols='50' disabled={isDisabled} className="bg-transparent outline-none placeholder:text-zinc-950 overflow-hidden resize-none h-auto" value={content} onChange={(e) => setContent(e.target.value)} />
                                         <div className="mt-5 flex justify-end gap-3 items-center">
                                             <img onClick={() => enableInput()} src="/resources/edit.svg" className={isDisabled ? "h-[21px] duration-150" : "h-[21px] bg-zinc-950/25 rounded duration-150"} />
                                             <img onClick={() => handleDeleteNote(selectedNote._id)} src="/resources/trash.svg" className="h-6 duration-150" />
@@ -130,27 +134,16 @@ function RenderNotes({ trigger }) {
 
                             <div className="p-5 md:p-10">
                                 <div className="">
-                                    <DragDropContext>
-                                        <Droppable droppableId="notes">
-                                            {(provided) => (
-                                                <div {...provided.droppableProps} ref={provided.innerRef} className="notes grid grid-col-1 md:grid-cols-3 gap-3">
-                                                    {notes
-                                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                                                    .map((note, index) => (
-                                                        <Draggable key={note._id} draggableId={note.title} index={index}>
-                                                            {(provided) => (
-                                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg}>
-                                                                    <p className="font-bold mb-1">{note.title}</p>
-                                                                    <p className="text-xs">{format(note.createdAt, "MMMM dd, yyyy")}</p>
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ))}
-                                                    {provided.placeholder}
+                                    <div className="notes grid grid-col-1 md:grid-cols-3 gap-3">
+                                        {notes
+                                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                            .map((note) => (
+                                                <div key={note._id} onClick={() => handleModalDisplay(note)} className={"border p-10 rounded-md shadow-md " + note.noteBg}>
+                                                    <p className="font-bold mb-1">{note.title}</p>
+                                                    <p className="text-xs">{format(note.createdAt, "MMMM dd, yyyy")}</p>
                                                 </div>
-                                            )}
-                                        </Droppable>
-                                    </DragDropContext>
+                                            ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

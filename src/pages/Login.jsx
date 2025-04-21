@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import LoginFields from "../components/auth/LoginFields"
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -8,11 +8,10 @@ import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-
     const { setAuth } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "home"
+    const from = location.state?.from?.pathname || "/"
 
     const userRef = useRef();
     const errRef = useRef();
@@ -48,7 +47,6 @@ const Login = () => {
             setAuth({ user, roles, accessToken, id });
             //setUser('');
             resetUser();
-
             setPwd('');
             navigate(from, { replace: true })
         } catch (err) {
@@ -80,7 +78,6 @@ const Login = () => {
                     fer={userRef}
                     autoCompt={"off"}
                     attribs={userAttr}
-
                 />
 
                 <LoginFields

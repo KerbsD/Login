@@ -25,9 +25,13 @@ function Todo() {
         console.log(todos)
         try {
             const response = await axiosPrivate.post('/todo',
-                JSON.stringify({ currentUser: auth.user, taskName: todos, type: type })
+                JSON.stringify({ 
+                    currentUser: auth.user, 
+                    taskName: todos, 
+                    type: type 
+                })
             );
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response?.data))
             setTodos('');
             toggleSuccess()
         } catch (err) {

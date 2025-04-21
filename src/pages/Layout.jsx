@@ -1,6 +1,7 @@
 import { Outlet, Link, useNavigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
+import Time from "../components/Time";
 
 function Layout() {
     const { auth } = useAuth();

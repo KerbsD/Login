@@ -8,7 +8,7 @@ const Todos = ({ trigger }) => {
     const [todo, setTodos] = useState();
     const axiosPrivate = useAxiosPrivate();
     const [success, setSuccess] = useState(false);
-    const [date, setDate] = useState(format(new Date(), "MMMM dd, yyyy"))
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0])
     const { auth } = useAuth();
 
     const toggleSuccess = () => {
@@ -22,9 +22,8 @@ const Todos = ({ trigger }) => {
             const response = await axiosPrivate.put('/todo',
                 { id: id, status: newStatus }
             );
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response?.data))
             toggleSuccess()
-
         } catch (err) {
             if (!err?.response) {
                 console.log(err);
@@ -42,7 +41,7 @@ const Todos = ({ trigger }) => {
             const response = await axiosPrivate.delete('/todo',
                 { data: { id: id } }
             );
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response?.data))
             toggleSuccess()
         } catch (err) {
             if (!err?.response) {
@@ -89,7 +88,9 @@ const Todos = ({ trigger }) => {
                     <input className="my-5 border border-zinc-400 rounded-md py-1 px-4 max-w-36 mx-auto" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     <ul className="md:max-w-4xl mb-5 p-5 md:p-0 md:min-w-4xl">
                         <h2 className="font-bold text-lg">Current Todo's:</h2>
-                        {todo.filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy")).map((todo) => (
+                        {todo
+                        .filter(todo => todo.status === "In Progress" && format(todo.createdAt, "MMMM dd, yyyy") === format(date, "MMMM dd, yyyy"))
+                        .map((todo) => (
                             <div className="rounded-lg shadow-lg shadow-zinc-950/40 border-zinc-50 border mt-4 duration-150" key={todo._id}>
                                 <div className="flex item-center justify-between">
                                     <p className="text-xs inline-block mx-5 my-1 ">Created: {format(todo.createdAt, "MMMM dd, yyyy")}</p>
@@ -132,14 +133,14 @@ const Todos = ({ trigger }) => {
                                         <div>
                                             <label className={todo.status === "In Progress" ? "text-xl" : "line-through text-zinc-600 text-xl"}>{todo?.taskName}</label>
                                         </div>
-                                        <img onClick={() => handleTodoDelete(todo._id)} src="/resources/trash.png" className="h-5 ml-4 duration-150 hover:animate-bounce" />
+                                        <img onClick={() => handleTodoDelete(todo._id)} src="/resources/trash.svg" className="h-6 ml-4 duration-150 hover:animate-bounce" />
                                     </li>
                                 </div>
                             )
                             )}
                     </ul>
                 </>
-                : <p className="text-3xl font-bold mt-20">There was an error</p>
+                : <p className="text-3xl font-bold mt-20">Loading...</p>
             }
         </> : <div className="grid place-content-center ">
             <div className="p-5 w-[50px] h-[50px] border-2 border-zinc-950 border-l-0 border-t-0 rounded-full animate-spin">

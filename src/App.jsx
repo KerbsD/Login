@@ -1,16 +1,17 @@
-import Register from './pages/Register'
-import Login from './pages/Login'
-import Todo from './pages/Todos/Todo'
-import Home from './pages/Home'
-import Layout from './pages/Layout'
-import Missing from './pages/Missing'
-import RequireAuth from './pages/RequireAuth'
-import Unauthorized from './pages/Unauthorized'
-import PersistLogin from './pages/PersistLogin'
+import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import NoteLayout from './pages/Notes/NoteLayout'
-import TodoLayout from './pages/Todos/TodoLayout'
-import Notes from './pages/Notes/Notes'
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Unauthorized = lazy(() => import('./pages/Unauthorized'));
+const PersistLogin = lazy(() => import('./pages/PersistLogin'));
+const RequireAuth = lazy(() => import('./pages/RequireAuth'));
+const Missing = lazy(() => import('./pages/Missing'));
+const Layout = lazy(() => import('./pages/Layout'));
+const NoteLayout = lazy(() => import('./pages/Notes/NoteLayout'));
+const TodoLayout = lazy(() => import('./pages/Todos/TodoLayout'));
+const Home = lazy(() => import('./pages/Home'));
+const Todo = lazy(() => import('./pages/Todos/Todo'));
+const Notes = lazy(() => import('./pages/Notes/Notes'));
 
 const ROLES = {
   'User': 2001,
